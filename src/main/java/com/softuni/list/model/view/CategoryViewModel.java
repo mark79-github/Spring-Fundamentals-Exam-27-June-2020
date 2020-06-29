@@ -12,7 +12,9 @@ public class CategoryViewModel extends BaseViewModel {
     }
 
     public String getName() {
-        return name;
+        return this.name.equals("other".toUpperCase()) ?
+                this.name.substring(0, 1).toUpperCase() + this.name.substring(1).toLowerCase() :
+                this.name.substring(0, 1).toUpperCase() + this.name.substring(1).toLowerCase() + "s";
     }
 
     public void setName(String name) {
