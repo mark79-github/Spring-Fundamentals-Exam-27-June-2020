@@ -20,7 +20,8 @@
                 </div>
             </div>
         </div>
-        <a th:href="@{/products/buy/all}" th:text="|Buy all products for ${#numbers.formatDecimal(productsTotalPrice, 1, 2)} lv|"
+        <a th:href="@{/products/buy/all}"
+           th:text="|Buy all products for ${#numbers.formatDecimal(productsTotalPrice, 1, 2)} lv|"
            class="btn btn-danger"></a>
     </div>
 </main>

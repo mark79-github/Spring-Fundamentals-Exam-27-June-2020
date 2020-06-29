@@ -31,7 +31,6 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
-
     @GetMapping("/logout")
     public String logout(HttpSession httpSession) {
 
@@ -66,6 +65,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute("notFound", false);
             return "redirect:login";
         }
 
