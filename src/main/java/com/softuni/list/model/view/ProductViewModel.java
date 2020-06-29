@@ -3,6 +3,7 @@ package com.softuni.list.model.view;
 import java.math.BigDecimal;
 
 public class ProductViewModel extends BaseViewModel {
+
     private String name;
     private BigDecimal price;
 

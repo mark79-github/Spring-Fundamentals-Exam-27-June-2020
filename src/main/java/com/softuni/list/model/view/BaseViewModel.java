@@ -1,6 +1,7 @@
 package com.softuni.list.model.view;
 
 public abstract class BaseViewModel {
+
     private String id;
 
     public BaseViewModel() {

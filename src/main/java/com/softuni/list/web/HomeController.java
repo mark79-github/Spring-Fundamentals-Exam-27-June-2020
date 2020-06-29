@@ -41,7 +41,7 @@ public class HomeController {
         }
 
         model.addAttribute("categories", this.categoryService.getAllCategories());
-        model.addAttribute("totalPriceOfProducts", this.productService.getProductsTotalPrice());
+        model.addAttribute("productsTotalPrice", this.productService.getProductsTotalPrice());
 
         return "home";
     }
