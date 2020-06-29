@@ -20,9 +20,9 @@ public class Category extends BaseEntity {
     }
 
     public Category(CategoryName name, String description) {
-        this.name = name;
-        this.description = description;
-        this.products = new ArrayList<>();
+        this.setName(name);
+        this.setDescription(description);
+        this.setProducts(new ArrayList<>());
     }
 
     public CategoryName getName() {
