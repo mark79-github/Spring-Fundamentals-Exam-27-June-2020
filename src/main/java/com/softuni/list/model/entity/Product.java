@@ -12,22 +12,24 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static com.softuni.list.constant.GlobalConstants.*;
+
 @Entity
 @Table(name = "products")
 public class Product extends BaseEntity {
 
-    @Column(name = "name", nullable = false, unique = true)
-    @Length(min = 3, max = 20, message = "Name must be between 3 and 20 characters")
+    @Column(nullable = false, unique = true)
+    @Length(min = 3, max = 20, message = PRODUCT_NAME_RESTRICTION_MESSAGE)
     private String name;
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
-    @Length(min = 5, message = "Description must be minimum 5 characters")
+    @Column(nullable = false, columnDefinition = "TEXT")
+    @Length(min = 5, message = DESCRIPTION_RESTRICTION_MESSAGE)
     private String description;
-    @Column(name = "price", nullable = false)
-    @Positive(message = "Price must be a positive number")
+    @Column(nullable = false)
+    @Positive(message = PRICE_RESTRICTION_MESSAGE)
     private BigDecimal price;
     @Column(name = "needed_before", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @FutureOrPresent(message = "The date and time cannot be in the past")
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+    @FutureOrPresent(message = NEEDED_DATE_TIME_RESTRICTION_MESSAGE)
     private LocalDateTime neededBefore;
     @ManyToOne(optional = false)
     private Category category;

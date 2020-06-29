@@ -10,20 +10,22 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static com.softuni.list.constant.GlobalConstants.*;
+
 public class ProductAddBindingModel {
 
-    @Length(min = 3, max = 20, message = "Name must be between 3 and 20 characters")
+    @Length(min = 3, max = 20, message = PRODUCT_NAME_RESTRICTION_MESSAGE)
     private String name;
-    @Length(min = 5, message = "Description must be minimum 5 characters")
+    @Length(min = 5, message = DESCRIPTION_RESTRICTION_MESSAGE)
     private String description;
-    @NotNull(message = "Price must be a positive number")
-    @Positive(message = "Price must be a positive number")
+    @NotNull(message = PRICE_RESTRICTION_MESSAGE)
+    @Positive(message = PRICE_RESTRICTION_MESSAGE)
     private BigDecimal price;
-    @NotNull(message = "Date and time can not be null")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @FutureOrPresent(message = "The date and time cannot be in the past")
+    @NotNull(message = NEEDED_DATE_TIME_NOT_NULL_MESSAGE)
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+    @FutureOrPresent(message = NEEDED_DATE_TIME_RESTRICTION_MESSAGE)
     private LocalDateTime neededBefore;
-    @NotNull(message = "Category must not be null")
+    @NotNull(message = CATEGORY_NOT_NULL_MESSAGE)
     private CategoryName category;
 
     public ProductAddBindingModel() {

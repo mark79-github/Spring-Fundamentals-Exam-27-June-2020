@@ -5,15 +5,17 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import static com.softuni.list.constant.GlobalConstants.*;
+
 public class UserRegisterBindingModel {
 
-    @Length(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @Length(min = 3, max = 20, message = USERNAME_RESTRICTION_MESSAGE)
     private String username;
-    @Length(min = 3, max = 20, message = "Password must be between 3 and 20 characters")
+    @Length(min = 3, max = 20, message = PASSWORD_RESTRICTION_MESSAGE)
     private String password;
     private String confirmPassword;
-    @NotEmpty(message = "Email can not be empty")
-    @Email(message = "Must contains '@'")
+    @NotEmpty(message = EMAIL_NOT_EMPTY_MESSAGE)
+    @Email(message = EMAIL_RESTRICTION_MESSAGE)
     private String email;
 
     public UserRegisterBindingModel() {

@@ -2,11 +2,14 @@ package com.softuni.list.model.bind;
 
 import org.hibernate.validator.constraints.Length;
 
+import static com.softuni.list.constant.GlobalConstants.PASSWORD_RESTRICTION_MESSAGE;
+import static com.softuni.list.constant.GlobalConstants.USERNAME_RESTRICTION_MESSAGE;
+
 public class UserLoginBindingModel {
 
-    @Length(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @Length(min = 3, max = 20, message = USERNAME_RESTRICTION_MESSAGE)
     private String username;
-    @Length(min = 3, max = 20, message = "Password must be between 3 and 20 characters")
+    @Length(min = 3, max = 20, message = PASSWORD_RESTRICTION_MESSAGE)
     private String password;
 
     public UserLoginBindingModel() {

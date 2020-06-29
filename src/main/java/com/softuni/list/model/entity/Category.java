@@ -8,10 +8,10 @@ import java.util.List;
 @Table(name = "categories")
 public class Category extends BaseEntity {
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     @Enumerated(EnumType.ORDINAL)
     private CategoryName name;
-    @Column(name = "description")
+    @Column()
     private String description;
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products;

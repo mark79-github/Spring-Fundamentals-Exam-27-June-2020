@@ -7,18 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
+import static com.softuni.list.constant.GlobalConstants.*;
+
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(name = "username", nullable = false, unique = true)
-    @Length(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @Column(nullable = false, unique = true)
+    @Length(min = 3, max = 20, message = USERNAME_RESTRICTION_MESSAGE)
     private String username;
-    @Column(name = "password", nullable = false)
-    @Length(min = 3, max = 20, message = "Password must be between 3 and 20 characters")
+    @Column(nullable = false)
+    @Length(min = 3, max = 20, message = PASSWORD_RESTRICTION_MESSAGE)
     private String password;
-    @Column(name = "email", nullable = false, unique = true)
-    @Email(message = "Must contains '@'")
+    @Column(nullable = false, unique = true)
+    @Email(message = EMAIL_RESTRICTION_MESSAGE)
     private String email;
 
     public User() {
