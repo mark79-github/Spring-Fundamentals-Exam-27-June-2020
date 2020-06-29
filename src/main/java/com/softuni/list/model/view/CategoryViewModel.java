@@ -2,7 +2,7 @@ package com.softuni.list.model.view;
 
 import java.util.List;
 
-public class CategoryViewModel extends BaseViewModel {
+public class CategoryViewModel {
 
     private String name;
     private List<ProductViewModel> products;
