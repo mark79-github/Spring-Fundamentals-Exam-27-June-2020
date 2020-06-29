@@ -13,6 +13,5 @@ public class GlobalConstants {
     public static final String CATEGORY_NOT_NULL_MESSAGE = "Category can not be null";
     public static final String EMAIL_NOT_EMPTY_MESSAGE = "Email can not be empty";
 
-    //    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm";
-    public static final String DATE_TIME_PATTERN = "dd.MM.yyyy'T'HH:mm";
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm";
 }
