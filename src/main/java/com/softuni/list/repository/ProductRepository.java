@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
-    @Query("select sum(p.price) as total_price from Product as p")
+    @Query("SELECT sum(p.price) AS total_price FROM Product AS p")
     Optional<BigDecimal> getProductsTotalSum();
 }
