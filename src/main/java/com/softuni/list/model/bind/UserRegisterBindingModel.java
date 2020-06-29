@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import static com.softuni.list.constant.GlobalConstants.*;
+import static com.softuni.list.constants.GlobalConstants.*;
 
 public class UserRegisterBindingModel {
 

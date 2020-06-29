@@ -2,8 +2,8 @@ package com.softuni.list.model.bind;
 
 import org.hibernate.validator.constraints.Length;
 
-import static com.softuni.list.constant.GlobalConstants.PASSWORD_RESTRICTION_MESSAGE;
-import static com.softuni.list.constant.GlobalConstants.USERNAME_RESTRICTION_MESSAGE;
+import static com.softuni.list.constants.GlobalConstants.PASSWORD_RESTRICTION_MESSAGE;
+import static com.softuni.list.constants.GlobalConstants.USERNAME_RESTRICTION_MESSAGE;
 
 public class UserLoginBindingModel {
 

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
-import static com.softuni.list.constant.GlobalConstants.*;
+import static com.softuni.list.constants.GlobalConstants.*;
 
 @Entity
 @Table(name = "users")

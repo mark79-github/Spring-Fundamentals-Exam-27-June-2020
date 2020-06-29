@@ -12,7 +12,7 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static com.softuni.list.constant.GlobalConstants.*;
+import static com.softuni.list.constants.GlobalConstants.*;
 
 @Entity
 @Table(name = "products")

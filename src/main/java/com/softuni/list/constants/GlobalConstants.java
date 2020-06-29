@@ -1,4 +1,4 @@
-package com.softuni.list.constant;
+package com.softuni.list.constants;
 
 public class GlobalConstants {
     public static final String USERNAME_RESTRICTION_MESSAGE = "Username must be between 3 and 20 characters";
