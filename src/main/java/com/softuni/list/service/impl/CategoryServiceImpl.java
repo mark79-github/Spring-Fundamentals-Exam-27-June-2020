@@ -10,10 +10,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.softuni.list.constants.GlobalConstants.CATEGORY_DESCRIPTION_PATTERN;
+import static com.softuni.list.constants.GlobalConstants.CATEGORY_IMAGE_FILEPATH_PATTERN;
 
 @Component
 public class CategoryServiceImpl implements CategoryService {
@@ -27,12 +31,12 @@ public class CategoryServiceImpl implements CategoryService {
         this.modelMapper = modelMapper;
     }
 
-    @Override
+    @PostConstruct
     public void initCategories() {
         if (this.categoryRepository.count() == 0) {
             Arrays.stream(CategoryName.values())
                     .map(categoryName -> new Category(categoryName,
-                            String.format("Description for %s", categoryName.name().toLowerCase())))
+                            String.format(CATEGORY_DESCRIPTION_PATTERN, categoryName.name().toLowerCase())))
                     .forEach(this.categoryRepository::saveAndFlush);
         }
     }
@@ -53,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .sorted(Comparator.comparingInt(f -> f.getName().ordinal()))
                 .map(category -> {
                     CategoryViewModel categoryViewModel = this.modelMapper.map(category, CategoryViewModel.class);
-                    categoryViewModel.setImageUrl(String.format("/img/%s.png", category.getName().name().toLowerCase()));
+                    categoryViewModel.setImageUrl(String.format(CATEGORY_IMAGE_FILEPATH_PATTERN, category.getName().name().toLowerCase()));
                     return categoryViewModel;
                 }).collect(Collectors.toList());
     }

@@ -14,4 +14,7 @@ public class GlobalConstants {
     public static final String EMAIL_NOT_EMPTY_MESSAGE = "Email can not be empty";
 
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm";
+    public static final String CATEGORY_DESCRIPTION_PATTERN = "Description for %s";
+    public static final String CATEGORY_IMAGE_FILEPATH_PATTERN = "/img/%s.png";
+
 }
