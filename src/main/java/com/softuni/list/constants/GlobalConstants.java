@@ -2,7 +2,8 @@ package com.softuni.list.constants;
 
 public class GlobalConstants {
     public static final String USERNAME_RESTRICTION_MESSAGE = "Username must be between 3 and 20 characters";
-    public static final String PASSWORD_RESTRICTION_MESSAGE = "Password must be between 3 and 20 characters";
+    //    public static final String PASSWORD_RESTRICTION_MESSAGE = "Password must be between 3 and 20 characters";
+    public static final String PASSWORD_RESTRICTION_MESSAGE = "Password must be at least 3 characters";
     public static final String EMAIL_RESTRICTION_MESSAGE = "Must contains '@'";
     public static final String PRODUCT_NAME_RESTRICTION_MESSAGE = "Name must be between 3 and 20 characters";
     public static final String DESCRIPTION_RESTRICTION_MESSAGE = "Description must be minimum 5 characters";

@@ -17,7 +17,8 @@ public class User extends BaseEntity {
     @Length(min = 3, max = 20, message = USERNAME_RESTRICTION_MESSAGE)
     private String username;
     @Column(nullable = false)
-    @Length(min = 3, max = 20, message = PASSWORD_RESTRICTION_MESSAGE)
+//    @Length(min = 3, max = 20, message = PASSWORD_RESTRICTION_MESSAGE)
+    @Length(min = 3, message = PASSWORD_RESTRICTION_MESSAGE)
     private String password;
     @Column(nullable = false, unique = true)
     @Email(message = EMAIL_RESTRICTION_MESSAGE)

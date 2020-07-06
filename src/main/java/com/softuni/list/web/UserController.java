@@ -6,6 +6,7 @@ import com.softuni.list.model.service.UserServiceModel;
 import com.softuni.list.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +25,13 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/logout")
@@ -70,7 +73,7 @@ public class UserController {
         }
 
         UserServiceModel userServiceModel = this.userService.getUserByName(userLoginBindingModel.getUsername());
-        if (userServiceModel == null || !userServiceModel.getPassword().equals(userLoginBindingModel.getPassword())) {
+        if (userServiceModel == null || !this.passwordEncoder.matches(userLoginBindingModel.getPassword(), userServiceModel.getPassword())) {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
             redirectAttributes.addFlashAttribute("notFound", true);
