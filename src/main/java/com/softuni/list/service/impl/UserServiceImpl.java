@@ -6,7 +6,7 @@ import com.softuni.list.repository.UserRepository;
 import com.softuni.list.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,19 +14,19 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final Argon2PasswordEncoder argon2PasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, Argon2PasswordEncoder argon2PasswordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.argon2PasswordEncoder = argon2PasswordEncoder;
     }
 
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
         User user = this.modelMapper.map(userServiceModel, User.class);
-        user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
+        user.setPassword(this.argon2PasswordEncoder.encode(userServiceModel.getPassword()));
         this.userRepository.saveAndFlush(user);
     }
 

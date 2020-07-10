@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController extends BaseController {
 
     private final ProductService productService;
     private final ModelMapper modelMapper;
@@ -28,57 +29,68 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    public String add(Model model,
-                      HttpSession httpSession) {
+    public ModelAndView add(Model model,
+                            HttpSession httpSession) {
 
         if (httpSession.getAttribute("user") == null) {
-            return "redirect:/";
+            return new ModelAndView("redirect:/");
+//            return "redirect:/";
         }
 
         if (!model.containsAttribute("productAddBindingModel")) {
             model.addAttribute("productAddBindingModel", new ProductAddBindingModel());
         }
 
-        return "product-add";
+        return new ModelAndView("product-add");
+//        return "product-add";
     }
 
     @PostMapping("/add")
-    public String addConfirm(@Valid
+    public ModelAndView addConfirm(@Valid
                              @ModelAttribute(name = "productAddBindingModel") ProductAddBindingModel productAddBindingModel,
                              BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes) {
+                             RedirectAttributes redirectAttributes,
+                             ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("productAddBindingModel", productAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productAddBindingModel", bindingResult);
-            return "redirect:add";
+            modelAndView.setViewName("redirect:add");
+            return modelAndView;
+//            return "redirect:add";
         }
 
         ProductServiceModel productServiceModel = this.modelMapper.map(productAddBindingModel, ProductServiceModel.class);
         this.productService.addProduct(productServiceModel);
 
-        return "redirect:/";
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+//        return "redirect:/";
     }
 
     @GetMapping("/buy")
-    public String buy(@RequestParam("id") String id,
+    public ModelAndView buy(@RequestParam("id") String id,
                       HttpSession httpSession) {
 
         if (httpSession.getAttribute("user") != null) {
             this.productService.buyProductById(id);
         }
 
-        return "redirect:/";
+        return new ModelAndView("redirect:/");
+
+//        return "redirect:/";
     }
 
     @GetMapping("/buy/all")
-    public String buyAll(HttpSession httpSession) {
+    public ModelAndView buyAll(HttpSession httpSession) {
 
         if (httpSession.getAttribute("user") != null) {
             this.productService.buyAllProducts();
         }
 
-        return "redirect:/";
+        return new ModelAndView("redirect:/");
+
+//        return "redirect:/";
     }
 
 }
