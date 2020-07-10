@@ -37,16 +37,9 @@ public class UserController extends BaseController {
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession httpSession) {
-
         httpSession.invalidate();
 
-        return super.redirect("/");
-//
-//        modelAndView.setViewName("redirect:/");
-//        return modelAndView;
-
-//        return "redirect:/";
-
+        return redirect("/");
     }
 
     @GetMapping("/login")
@@ -54,9 +47,7 @@ public class UserController extends BaseController {
                               HttpSession httpSession) {
 
         if (httpSession.getAttribute("user") != null) {
-//            modelAndView.setViewName("redirect:/");
-            return super.redirect("/");
-//            return "redirect:/";
+            return redirect("/");
         }
 
         if (!model.containsAttribute("userLoginBindingModel")) {
@@ -64,11 +55,7 @@ public class UserController extends BaseController {
             model.addAttribute("notFound", false);
         }
 
-
-        //        modelAndView.setViewName("login");
-        return super.view("login");
-//        return new ModelAndView("login");
-//        return "login";
+        return view("login");
     }
 
     @PostMapping("/login")
@@ -82,15 +69,8 @@ public class UserController extends BaseController {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
             redirectAttributes.addFlashAttribute("notFound", false);
-//            modelAndView.addObject("userLoginBindingModel", userLoginBindingModel);
-//            modelAndView.addObject("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-//            modelAndView.addObject("notFound", false);
 
-            return super.redirect("login");
-
-//            modelAndView.setViewName("redirect:login");
-//            return modelAndView;
-//            return "redirect:login";
+            return redirect("login");
         }
 
         UserServiceModel userServiceModel = this.userService.getUserByName(userLoginBindingModel.getUsername());
@@ -98,21 +78,12 @@ public class UserController extends BaseController {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
             redirectAttributes.addFlashAttribute("notFound", true);
-//            modelAndView.addObject("userLoginBindingModel", userLoginBindingModel);
-//            modelAndView.addObject("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-//            modelAndView.addObject("notFound", true);
 
-            return super.redirect("login");
-//            modelAndView.setViewName("redirect:login");
-//            return modelAndView;
-//            return "redirect:login";
+            return redirect("login");
         }
 
         httpSession.setAttribute("user", userLoginBindingModel);
-        return super.redirect("/");
-//        modelAndView.setViewName("redirect:/");
-//        return modelAndView;
-//        return "redirect:/";
+        return redirect("/");
 
     }
 
@@ -121,19 +92,15 @@ public class UserController extends BaseController {
                                  HttpSession httpSession) {
 
         if (httpSession.getAttribute("user") != null) {
-            return super.redirect("/");
-//            return new ModelAndView("redirect:/");
-//            return "redirect:/";
+            return redirect("/");
         }
 
         if (!model.containsAttribute("userRegisterBindingModel")) {
             model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
         }
 
-//        modelAndView.setViewName("register");
-//        return new ModelAndView("register");
-        return super.view("register");
-//        return "register";
+        return view("register");
+
     }
 
     @PostMapping("/register")
@@ -143,71 +110,43 @@ public class UserController extends BaseController {
                                         RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-//            modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
-//            modelAndView.addObject("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
 
-            return super.redirect("register");
-//            modelAndView.setViewName("register");
-//            return modelAndView;
-//            return "redirect:register";
+            return redirect("register");
         }
 
         UserServiceModel userServiceModel = this.userService.getUserByName(userRegisterBindingModel.getUsername());
 
         if (userServiceModel != null) {
-//            modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
-//            modelAndView.addObject("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             bindingResult.rejectValue("username", "error.userRegisterBindingModel", "Username is already taken");
 
-//            modelAndView.setViewName("register");
-//            return modelAndView;
-
-            return super.redirect("register");
-
-//            return "redirect:register";
+            return redirect("register");
         }
 
         userServiceModel = this.userService.getUserByEmail(userRegisterBindingModel.getEmail());
 
         if (userServiceModel != null) {
-//            modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
-//            modelAndView.addObject("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             bindingResult.rejectValue("email", "error.userRegisterBindingModel", "Email is already taken");
 
-
-            return super.redirect("register");
-//            modelAndView.setViewName("register");
-//            return modelAndView;
-//            return "redirect:register";
+            return redirect("register");
         }
 
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-//            modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
-//            modelAndView.addObject("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             bindingResult.rejectValue("confirmPassword", "error.userRegisterBindingModel", "Confirm password did not match");
-//            modelAndView.setViewName("register");
-//            return modelAndView;
-//            return "redirect:register";
-            return super.redirect("register");
+
+            return redirect("register");
         }
 
         this.userService.registerUser(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
 
-//        modelAndView.setViewName("redirect:login");
-//        return modelAndView;
-        return super.redirect("login");
-//        return "redirect:login";
+        return redirect("login");
     }
 
 }

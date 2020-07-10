@@ -4,7 +4,6 @@ import com.softuni.list.service.CategoryService;
 import com.softuni.list.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,40 +24,20 @@ public class HomeController extends BaseController {
     @GetMapping("/")
     public ModelAndView index(HttpSession httpSession) {
 
-        if (httpSession.getAttribute("user") == null) {
-            return super.view("index");
-//            modelAndView.vi("index");
-//            return "index";
-        } else {
-            return super.redirect("home");
-//            modelAndView.setViewName("redirect:home");
-//            return "redirect:home";
-        }
-
+        return httpSession.getAttribute("user") == null ? view("index") : redirect("home");
     }
 
     @GetMapping("/home")
-    public ModelAndView home(Model model,
-                             HttpSession httpSession,
+    public ModelAndView home(HttpSession httpSession,
                              ModelAndView modelAndView) {
 
         if (httpSession.getAttribute("user") == null) {
-            return super.redirect("/");
-//            modelAndView.setViewName("redirect:/");
-//            return modelAndView;
-//            return "redirect:/";
-        } else {
-
-            modelAndView.addObject("categories", this.categoryService.getAllCategories());
-//        model.addAttribute("categories", this.categoryService.getAllCategories());
-            modelAndView.addObject("productsTotalPrice", this.productService.getProductsTotalPrice());
-//        model.addAttribute("productsTotalPrice", this.productService.getProductsTotalPrice());
-
-//        return "home";
-
-            return super.view("home", modelAndView);
-//            modelAndView.setViewName("home");
-//            return modelAndView;
+            return redirect("/");
         }
+
+        modelAndView.addObject("categories", this.categoryService.getAllCategories());
+        modelAndView.addObject("productsTotalPrice", this.productService.getProductsTotalPrice());
+
+        return view("home", modelAndView);
     }
 }

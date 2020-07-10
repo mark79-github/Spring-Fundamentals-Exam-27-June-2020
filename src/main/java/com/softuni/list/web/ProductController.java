@@ -33,39 +33,33 @@ public class ProductController extends BaseController {
                             HttpSession httpSession) {
 
         if (httpSession.getAttribute("user") == null) {
-            return new ModelAndView("redirect:/");
-//            return "redirect:/";
+            return redirect("/");
         }
 
         if (!model.containsAttribute("productAddBindingModel")) {
             model.addAttribute("productAddBindingModel", new ProductAddBindingModel());
         }
 
-        return new ModelAndView("product-add");
-//        return "product-add";
+        return view("product-add");
     }
 
     @PostMapping("/add")
     public ModelAndView addConfirm(@Valid
-                             @ModelAttribute(name = "productAddBindingModel") ProductAddBindingModel productAddBindingModel,
-                             BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes,
-                             ModelAndView modelAndView) {
+                                   @ModelAttribute(name = "productAddBindingModel") ProductAddBindingModel productAddBindingModel,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("productAddBindingModel", productAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productAddBindingModel", bindingResult);
-            modelAndView.setViewName("redirect:add");
-            return modelAndView;
-//            return "redirect:add";
+
+            return redirect("add");
         }
 
         ProductServiceModel productServiceModel = this.modelMapper.map(productAddBindingModel, ProductServiceModel.class);
         this.productService.addProduct(productServiceModel);
 
-        modelAndView.setViewName("redirect:/");
-        return modelAndView;
-//        return "redirect:/";
+        return redirect("/");
     }
 
     @GetMapping("/buy")
@@ -76,9 +70,7 @@ public class ProductController extends BaseController {
             this.productService.buyProductById(id);
         }
 
-        return new ModelAndView("redirect:/");
-
-//        return "redirect:/";
+        return redirect("/");
     }
 
     @GetMapping("/buy/all")
@@ -88,9 +80,7 @@ public class ProductController extends BaseController {
             this.productService.buyAllProducts();
         }
 
-        return new ModelAndView("redirect:/");
-
-//        return "redirect:/";
+        return redirect("/");
     }
 
 }
