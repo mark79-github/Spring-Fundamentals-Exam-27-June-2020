@@ -25,4 +25,8 @@ hs_err_pid*
 *.iml
 
 ## Directory-based project format:
-.idea/*
+.idea/
+
+# Build outputs
+/target/
+out/
